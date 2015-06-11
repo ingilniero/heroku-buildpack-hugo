@@ -41,6 +41,36 @@ if [ -e $BUILD_DIR/.hugotheme ]; then
   git clone $THEME_URL
 fi
 
+NODE_VERSION=$(curl --silent --get --data-urlencode "range=${semver_range}" https://semver.io/node/resolve)
+
+# Download node from Heroku's S3 mirror of nodejs.org/dist
+echo "\n-----> Downloading and installing node"
+NODE_URL="http://s3pository.heroku.com/node/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.gz"
+curl $NODE_URL -s -o - | tar xzf - -C $BUILD_DIR
+
+# Move node (and npm) into ./vendor and make them executable
+mkdir -p $BUILD_DIR/vendor
+mv $BUILD_DIR/node-v$NODE_VERSION-linux-x64 $BUILD_DIR/vendor/node
+chmod +x $BUILD_DIR/vendor/node/bin/*
+PATH=$PATH:$BUILD_DIR/vendor/node/bin
+
+
+# Install npm dependencies
+
+cd $BUILD_DIR/themes/crowdsite/
+
+(
+  echo "\n-----> Installing dependencies"
+  # Make npm output to STDOUT instead of its default STDERR
+  npm install 2>&1 | indent
+)
+
+# Compile assets
+echo "\n-----> Compiling assets with gulp"
+$BUILD_DIR/themes/crowdsite/node_modules/.bin/gulp sass
+$BUILD_DIR/themes/crowdsite/node_modules/.bin/gulp scripts
+
+
 # Build the site
 echo "\n-----> Building the site"
 cd $BUILD_DIR
