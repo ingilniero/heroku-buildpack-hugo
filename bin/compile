@@ -67,8 +67,8 @@ cd $BUILD_DIR/themes/crowdsite/
 
 # Compile assets
 echo "\n-----> Compiling assets with gulp"
-$BUILD_DIR/themes/crowdsite/node_modules/.bin/gulp cdnify-assets
-$BUILD_DIR/themes/crowdsite/node_modules/.bin/gulp cdnify-images
+#$BUILD_DIR/themes/crowdsite/node_modules/.bin/gulp cdnify-assets
+#$BUILD_DIR/themes/crowdsite/node_modules/.bin/gulp cdnify-images
 $BUILD_DIR/themes/crowdsite/node_modules/.bin/gulp sass
 $BUILD_DIR/themes/crowdsite/node_modules/.bin/gulp scripts
 
