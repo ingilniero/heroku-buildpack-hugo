@@ -71,6 +71,7 @@ echo "\n-----> Compiling assets with gulp"
 #$BUILD_DIR/themes/crowdsite/node_modules/.bin/gulp cdnify-images
 $BUILD_DIR/themes/crowdsite/node_modules/.bin/gulp sass
 $BUILD_DIR/themes/crowdsite/node_modules/.bin/gulp scripts
+$BUILD_DIR/themes/crowdsite/node_modules/.bin/gulp analytics:set
 
 
 # Build the site
