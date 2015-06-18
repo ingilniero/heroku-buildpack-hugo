@@ -67,12 +67,14 @@ cd $BUILD_DIR/themes/crowdsite/
 
 # Compile assets
 echo "\n-----> Compiling assets with gulp"
-#$BUILD_DIR/themes/crowdsite/node_modules/.bin/gulp cdnify-assets
-#$BUILD_DIR/themes/crowdsite/node_modules/.bin/gulp cdnify-images
 $BUILD_DIR/themes/crowdsite/node_modules/.bin/gulp sass
 $BUILD_DIR/themes/crowdsite/node_modules/.bin/gulp scripts
-$BUILD_DIR/themes/crowdsite/node_modules/.bin/gulp analytics:set
 
+# Add revision to assets
+$BUILD_DIR/themes/crowdsite/node_modules/.bin/gulp rev
+$BUILD_DIR/themes/crowdsite/node_modules/.bin/gulp rev-layouts
+$BUILD_DIR/themes/crowdsite/node_modules/.bin/gulp rev-html
+$BUILD_DIR/themes/crowdsite/node_modules/.bin/gulp rev-css
 
 # Build the site
 echo "\n-----> Building the site"
